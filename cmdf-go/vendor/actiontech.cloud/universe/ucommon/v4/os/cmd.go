@@ -155,7 +155,6 @@ func (h *HaCmd) handleError(stage *log.Stage, e error) (retStr string, retCode i
 	retStr = string(h.buf.Bytes())
 	retStr = strings.TrimSpace(retStr)
 	err = e
-	fmt.Printf("DEBUG: e:%v", e)
 	if nil != err {
 		if e2, ok := err.(*exec.ExitError); ok {
 			if s, ok := e2.Sys().(builtin_syscall.WaitStatus); ok {
@@ -288,7 +287,7 @@ func NewHaCmd(stage *log.Stage, str string) (a *HaCmd, err error) {
 				uintCaps = append(uintCaps, uintptr(capInt))
 			}
 		}
-		// see: https://github.com/golang/go/issues/19713
+		//see: https://github.com/golang/go/issues/19713
 		a.cmd.SysProcAttr = &builtin_syscall.SysProcAttr{
 			AmbientCaps: uintCaps,
 		}
