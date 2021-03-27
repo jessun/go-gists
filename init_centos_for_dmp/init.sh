@@ -1,5 +1,5 @@
 # yum
-yum install -y vim curl wget unzip yum-utils git python-devel python3-devel python3-pip openssl-devel
+yum install -y vim curl wget unzip yum-utils git python-devel python3-devel python3-pip openssl-devel gcc libffi-devel
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
