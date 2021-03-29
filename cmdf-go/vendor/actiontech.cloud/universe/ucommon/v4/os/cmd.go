@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"actiontech.cloud/universe/ucommon/v4/log"
+	"github.com/syndtr/gocapability/capability"
 )
 
 //Max cmd output is limited to 10MB
@@ -204,6 +205,7 @@ func innerCmdfWithQuitChan(stage *log.Stage, base string, quitChan chan bool, ar
 	cmd, err := NewHaCmd(stage, str)
 	defer cmd.Destroy()
 	if nil != err {
+		fmt.Println(err)
 		return "", 1, err
 	}
 	if nil == quitChan {
@@ -276,20 +278,36 @@ func NewHaCmd(stage *log.Stage, str string) (a *HaCmd, err error) {
 	str = strings.Replace(str, "SUROOT ", suroot, -1)
 	a.str = str
 	a.cmd = exec.Command("bash", "--noprofile", "--norc", "-c", fmt.Sprintf("%v", str))
-	//get current process caps, and set it to cmd.
-	caps, err := GetCap(os.Getpid())
-	if err != nil {
-		return nil, err
-	} else {
-		uintCaps := make([]uintptr, 0)
-		for _, cap := range caps.Data {
-			for _, capInt := range DecodeCaps(cap.Effective) {
-				uintCaps = append(uintCaps, uintptr(capInt))
-			}
+	if !IsCentos6() && !IsSles11() { //do not keep cap in CentOS6 and SUSE 11 because kernel version too low.
+		pid := os.Getpid()
+		caps, err := capability.NewPid(pid)
+		if err != nil {
+			return nil, err
 		}
-		//see: https://github.com/golang/go/issues/19713
-		a.cmd.SysProcAttr = &builtin_syscall.SysProcAttr{
-			AmbientCaps: uintCaps,
+		caps.Set(capability.CAPS, capability.CAP_DAC_READ_SEARCH)
+		if err := caps.Apply(capability.CAPS); err != nil {
+			return nil, err
+		}
+
+		//get current process caps, and set it to cmd.
+		caps1, err := GetCap(os.Getpid())
+		if err != nil {
+			return nil, err
+		} else {
+			uintCaps := make([]uintptr, 0)
+			for _, cap := range caps1.Data {
+				for _, capInt := range DecodeCaps(cap.Effective) {
+					uintCaps = append(uintCaps, uintptr(capInt))
+				}
+			}
+			//see: https://github.com/golang/go/issues/19713
+			a.cmd.SysProcAttr = &builtin_syscall.SysProcAttr{
+				// AmbientCaps: uintCaps,
+				Credential: &builtin_syscall.Credential{
+					Uid: 65535,
+					Gid: 65535,
+				},
+			}
 		}
 	}
 
