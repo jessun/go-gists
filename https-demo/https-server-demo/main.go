@@ -3,6 +3,7 @@ package main
 import (
 	// "fmt"
 	// "io"
+	"fmt"
 	"log"
 	"net/http"
 )
@@ -16,6 +17,7 @@ func HelloServer(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	http.HandleFunc("/hello", HelloServer)
+	fmt.Println("Prepare Listen 433")
 	err := http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
