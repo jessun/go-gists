@@ -4,29 +4,15 @@ import (
 	"fmt"
 )
 
-type P struct {
-	value string
-}
+// P
+type P struct{ value string }
 
-func (p *P) Print() {
-	fmt.Printf("p.value[%v]\n", p.value)
-}
+func (p *P) Print() { fmt.Printf("p.value[%v]\n", p.value) }
 
-type Q struct {
-	value string
-}
+// Q
+type Q struct{ value string }
 
-func (q Q) Print() {
-	fmt.Printf("q.value[%v]\n", q.value)
-}
-
-type R struct {
-	value string
-}
-
-func (r *R) Print() {
-	fmt.Printf("r.value[%v]\n", r.value)
-}
+func (q Q) Print() { fmt.Printf("q.value[%v]\n", q.value) }
 
 func main() {
 	// ===============================
@@ -54,12 +40,12 @@ func main() {
 	defer fmt.Println()
 
 	// ===============================
-	r1 := R{value: "r1"}
-	defer r1.Print()
+	p3 := P{value: "p3"}
+	defer p3.Print()
 
-	r2 := &R{value: "r2"}
-	defer r2.Print()
+	p4 := &P{value: "p4"}
+	defer p4.Print()
 
-	r1.value = "r1.update"
-	r2.value = "r2.update"
+	p3.value = "p3.update"
+	p4.value = "p4.update"
 }
