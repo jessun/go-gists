@@ -9,7 +9,7 @@ import (
 
 func main() {
 	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	resp, err := http.Get("http://localhost/hello")
+	resp, err := http.Get("https://127.0.0.1:80/hello")
 	if err != nil {
 		fmt.Println(err)
 	}
