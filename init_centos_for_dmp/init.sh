@@ -23,6 +23,7 @@ systemctl start docker
 systemctl enable docker
 
 # quick-usage
-wget  ftp://ftp:ftp@10.186.18.20/housekeep/udp-quick-usage.zip
-unzip udp-quick-usage.zip
-cd quick-usage/deploy && make install
+wget  ftp://ftpuser:ftpuser@10.186.18.90/housekeep/udp-quick-usage.tar.gz
+tar -xvf ./udp-quick-usage.tar.gz
+cd quick-usage/deploy && make clean && make install
+
