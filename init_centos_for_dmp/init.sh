@@ -1,5 +1,5 @@
 # yum
-yum install -y vim curl wget unzip yum-utils git python-devel python3-devel python3-pip openssl-devel gcc libffi-devel libevent-devel gevent
+yum install -y vim curl wget unzip yum-utils git python-devel python3-devel python3-pip openssl-devel gcc libffi-devel libevent-devel gevent docker-compose
 yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo
@@ -21,9 +21,6 @@ mkdir -p /etc/docker
 echo '{"insecure-registries":["docker-registry:5000"]}' >> /etc/docker/daemon.json
 systemctl start docker
 systemctl enable docker
-
-pip3 install "pip>=20"
-pip3 install docker-compose
 
 # quick-usage
 wget  ftp://ftp:ftp@10.186.18.20/housekeep/udp-quick-usage.zip
