@@ -3,11 +3,15 @@ package main
 import (
 	"crypto/rand"
 	"crypto/tls"
+	"crypto/x509"
+	"encoding/pem"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/soheilhy/cmux"
 )
@@ -25,20 +29,20 @@ func Https1() {
 
 func main() {
 
+	b, err := ioutil.ReadFile("./server.crt")
+	if err != nil {
+		panic(err)
+	}
+
+	p, _ := pem.Decode(b)
+	crt, err := x509.ParseCertificate(p.Bytes)
+	if err != nil {
+
+	}
+	fmt.Printf("crt<%#v>\n", crt.NotAfter.Local().Format(time.RFC3339))
+	fmt.Printf("crt<%#v>\n", crt.NotBefore.Local().Format(time.RFC3339))
 	Https1()
 	// Example_bothHTTPAndHTTPS()
-	// b, err := ioutil.ReadFile("./server.crt")
-	// if err != nil {
-	//     panic(err)
-	// }
-	//
-	// p, _ := pem.Decode(b)
-	// crt, err := x509.ParseCertificate(p.Bytes)
-	// if err != nil {
-	//
-	// }
-	// fmt.Printf("crt<%#v>\n", crt.NotAfter.Local().Format(time.RFC3339))
-	// fmt.Printf("crt<%#v>\n", crt.NotBefore.Local().Format(time.RFC3339))
 }
 
 type anotherHTTPHandler struct{}
