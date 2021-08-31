@@ -10,4 +10,3 @@ list_redis_version:
 download_redis_src_code:
 	wget -c -O ./redis-${REDIS_VERSION}.tar.gz ${REDIS_SRC_CODE_URL}
 
-dockedr_build_redis_el7:
