@@ -1,0 +1,5 @@
+# github.com/sergi/go-diff v1.2.0
+## explicit
+github.com/sergi/go-diff/diffmatchpatch
+# github.com/stretchr/testify v1.7.0
+## explicit
