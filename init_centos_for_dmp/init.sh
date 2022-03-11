@@ -15,10 +15,11 @@ yum install -y docker-ce docker-ce-cli containerd.io
 
 # hosts
 echo "10.186.18.20 docker-registry" >> /etc/hosts
+echo "10.186.18.23 reg.actiontech.com" >> /etc/hosts
 
 # docker
 mkdir -p /etc/docker
-echo '{"insecure-registries":["docker-registry:5000"]}' >> /etc/docker/daemon.json
+echo '{"insecure-registries":["docker-registry:5000", "reg.actiontech.com"]}' >> /etc/docker/daemon.json
 systemctl start docker
 systemctl enable docker
 
