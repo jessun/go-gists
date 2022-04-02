@@ -26,7 +26,7 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
     make -j 96 && make -j 96 install && \
     rm -fr ./gcc-9.4.0
 
-# RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
-#     wget https://go.dev/dl/go1.17.8.src.tar.gz -O go_src.tar.gz && \
-#     tar -xvf ./go_src.tar.gz -C /opt
-#
+RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
+    wget https://go.dev/dl/go1.17.8.src.tar.gz -O go_src.tar.gz && \
+    tar -xvf ./go_src.tar.gz -C /opt
+
