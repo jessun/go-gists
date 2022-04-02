@@ -1,0 +1,54 @@
+RUN sed -i "s|enabled=1|enabled=0|g" /etc/yum/pluginconf.d/fastestmirror.conf
+RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+RUN curl -o /etc/yum.repos.d/CentOS-Base.repo https://www.xmpan.com/Centos-6-Vault-Aliyun.repo
+RUN yum clean all
+RUN yum makecache
+
+RUN yum install -y rpm-build git vim wget gcc
+
+COPY go1.4.3.linux-amd64.tar.gz /opt/
+COPY go1.14.13.src.tar.gz /opt/
+
+RUN mkdir /root/go1.4 \
+        && cat /opt/go1.4.3.linux-amd64.tar.gz | tar zxC /root/go1.4 --strip-components 1 \
+        && cat /opt/go1.14.13.src.tar.gz | tar xzC /opt \
+        && cd /opt/go/src \
+        && GO_GCFLAGS=-N ./make.bash \
+        && rm -rf /root/go1.4 \
+        && mkdir -p /balm /ha /common
+
+RUN yum clean all
+RUN yum install -y make
+
+ENV GOROOT /opt/go
+ENV PATH $PATH:$GOROOT/bin:$GOPATH
+
+RUN yum clean all
+RUN rpm --rebuilddb && yum install -y sudo
+RUN echo "go ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN sed -i "s/Defaults    requiretty/#Defaults    requiretty/g" /etc/sudoers
+
+RUN yum clean all
+RUN yum install -y zlib-devel nss-devel file-devel popt-devel libarchive-devel db4-devel lua-devel elfutils-devel --nogpgcheck
+RUN cd /opt; wget https://www.libarchive.org/downloads/libarchive-3.3.3.tar.gz && tar zxf libarchive-3.3.3.tar.gz
+RUN cd /opt/libarchive-3.3.3; ./configure && make install
+RUN cd /opt; wget http://ftp.rpm.org/releases/rpm-4.12.x/rpm-4.12.0.2.tar.bz2 && tar jxf rpm-4.12.0.2.tar.bz2
+RUN cd /opt/rpm-4.12.0.2; ./configure CPPFLAGS="-I/usr/include/nspr4 -I/usr/include/nss3 -I/usr/include/db4" LIBS='-L/usr/local/lib/' --with-external-db && make install
+
+COPY node-v10.13.0-linux-x64.tar.gz /opt/node-v10.13.0-linux-x64.tar.gz
+RUN cd /opt; tar zxf /opt/node-v10.13.0-linux-x64.tar.gz
+
+COPY scspell-master.tar.gz /opt/
+RUN yum clean all
+RUN yum install -y python-setuptools python-argparse --nogpgcheck
+RUN cd /opt; tar zxf scspell-master.tar.gz
+RUN cd /opt/scspell-master/; python setup.py install && cp /usr/bin/scspell /usr/local/bin/
+
+VOLUME /universe
+COPY * /docker-build/
+
+ENV PATH $PATH:/opt/node-v10.13.0-linux-x64/bin
+ENV NODE_PATH /opt/node-v10.13.0-linux-x64/lib/node_modules
+ENTRYPOINT ["/bin/bash"]
+
+https://go.dev/dl/go1.17.8.linux-amd64.tar.gz
