@@ -28,5 +28,7 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
 
 RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
     wget https://go.dev/dl/go1.17.8.src.tar.gz -O go_src.tar.gz && \
-    tar -xvf ./go_src.tar.gz -C /opt
+    tar -xvf ./go_src.tar.gz -C /opt && \
+    cd /opt/go/src && GO_GCFLAGS=-N ./make.bash && \
+    rm -fr /root/go1.4 
 
