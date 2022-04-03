@@ -5,7 +5,7 @@ CTN_NAME     = universe-centos6-compiler
 override DOCKER_BIN = $(shell which docker)
 
 build:
-	$(DOCKER_BIN) build --network host -t $(DOCKER_IMAGE) .
+	$(DOCKER_BIN) build --build-arg go_version=$(go_version) --network host -t $(DOCKER_IMAGE) .
 
 push:
 	$(DOCKER_BIN) push $(DOCKER_IMAGE)
