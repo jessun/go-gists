@@ -1,5 +1,7 @@
 FROM reg.actiontech.com/actiontech/centos:centos6
 
+ARG GO_VERSION=go_version
+
 ENV WORK_DIR=/root
 
 ENV http_proxy "http://172.17.0.1:1087"
@@ -27,7 +29,7 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
     rm -fr ./gcc-9.4.0
 
 RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
-    wget https://go.dev/dl/go${go_version}.src.tar.gz -O go_src.tar.gz && \
+    wget https://go.dev/dl/go${GO_VERSION}.src.tar.gz -O go_src.tar.gz && \
     tar -xvf ./go_src.tar.gz -C /opt && \
     cd /opt/go/src && GO_GCFLAGS=-N ./make.bash && \
     rm -fr /root/go1.4 
