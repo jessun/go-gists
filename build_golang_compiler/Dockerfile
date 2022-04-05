@@ -1,13 +1,13 @@
 FROM reg.actiontech.com/actiontech/centos:centos6
 
-ARG GO_VERSION=go_version
-
 ENV WORK_DIR=/root
 
 ENV http_proxy "http://172.17.0.1:1087"
 ENV HTTP_PROXY "http://172.17.0.1:1087"
 ENV https_proxy "http://172.17.0.1:1087"
 ENV HTTPS_PROXY "http://172.17.0.1:1087"
+
+ARG go_version=go_version
 
 RUN yum install -y rpm-build git vim gcc gcc-c++ zlib-devel nss-devel file-devel popt-devel libarchive-devel \
     wget ncurses ncurses-devel libaio-devel gmp gmp-devel mpfr mpfr-devel \
@@ -29,7 +29,7 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
     rm -fr ./gcc-9.4.0
 
 RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
-    wget https://go.dev/dl/go${GO_VERSION}.src.tar.gz -O go_src.tar.gz && \
+    wget https://go.dev/dl/go${go_version}.src.tar.gz -O go_src.tar.gz && \
     tar -xvf ./go_src.tar.gz -C /opt && \
     cd /opt/go/src && GO_GCFLAGS=-N ./make.bash && \
     rm -fr /root/go1.4 && rm -fr ${WORK_DIR}/download/go_src.tar.gz && rm -fr /opt/go/
