@@ -51,4 +51,3 @@ ENV PATH $PATH:/opt/node-v10.13.0-linux-x64/bin
 ENV NODE_PATH /opt/node-v10.13.0-linux-x64/lib/node_modules
 ENTRYPOINT ["/bin/bash"]
 
-https://go.dev/dl/go1.17.8.linux-amd64.tar.gz

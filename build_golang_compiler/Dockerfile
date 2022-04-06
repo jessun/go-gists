@@ -32,7 +32,7 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
     wget https://go.dev/dl/go${go_version}.src.tar.gz -O go_src.tar.gz && \
     tar -xvf ./go_src.tar.gz -C /opt && \
     cd /opt/go/src && GO_GCFLAGS=-N ./make.bash && \
-    rm -fr /root/go1.4 && rm -fr ${WORK_DIR}/download/go_src.tar.gz && rm -fr /opt/go/src
+    rm -fr /root/go1.4 && rm -fr ${WORK_DIR}/download/go_src.tar.gz
 
 ENV GOROOT /opt/go
 ENV PATH $PATH:$GOROOT/bin:$GOPATH
