@@ -12,7 +12,7 @@ RUN sed -i "s|enabled=1|enabled=0|g" /etc/yum/pluginconf.d/fastestmirror.conf &&
     curl -o /etc/yum.repos.d/CentOS-Base.repo https://www.xmpan.com/Centos-6-Vault-Aliyun.repo  && \
     yum makecache
 
-RUN yum install -y rpm-build git vim wget gcc make && yum clean all
+RUN yum install -y rpm-build git vim wget gcc make sudo && yum clean all
 
 ## sudo 
 RUN rpm --rebuilddb && yum install -y sudo && \
