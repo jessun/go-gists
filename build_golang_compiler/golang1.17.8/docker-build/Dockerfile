@@ -12,7 +12,11 @@ RUN sed -i "s|enabled=1|enabled=0|g" /etc/yum/pluginconf.d/fastestmirror.conf &&
     curl -o /etc/yum.repos.d/CentOS-Base.repo https://www.xmpan.com/Centos-6-Vault-Aliyun.repo  && \
     yum makecache
 
-RUN yum install -y rpm-build git vim wget gcc make sudo && yum clean all
+RUN yum install -y rpm-build git vim gcc gcc-c++ zlib-devel nss-devel file-devel popt-devel libarchive-devel \
+    wget ncurses ncurses-devel libaio-devel gmp gmp-devel mpfr mpfr-devel \
+    libmpc libmpc-devel net-tools cmake openssl openssl-devel numactl numactl-devel kernel-devel tcl bzip2 \
+    db4-devel lua-devel elfutils-devel --nogpgcheck && \
+    yum clean all
 
 ## sudo 
 RUN rpm --rebuilddb && yum install -y sudo && \
