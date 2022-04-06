@@ -36,3 +36,13 @@ RUN mkdir -p ${WORK_DIR}/download && cd ${WORK_DIR}/download && \
 
 ENV GOROOT /opt/go
 ENV PATH $PATH:$GOROOT/bin:$GOPATH
+
+RUN rpm --rebuilddb && yum install -y sudo && \
+    echo "go ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    sed -i "s/Defaults    requiretty/#Defaults    requiretty/g" /etc/sudoers && \
+    yum clean all
+
+RUN cd /opt; wget https://www.libarchive.org/downloads/libarchive-3.3.3.tar.gz && tar zxf libarchive-3.3.3.tar.gz && \
+    cd /opt/libarchive-3.3.3; ./configure && make install && \
+    cd /opt; wget http://ftp.rpm.org/releases/rpm-4.12.x/rpm-4.12.0.2.tar.bz2 && tar jxf rpm-4.12.0.2.tar.bz2 && \
+    cd /opt/rpm-4.12.0.2; ./configure CPPFLAGS="-I/usr/include/nspr4 -I/usr/include/nss3 -I/usr/include/db4" LIBS='-L/usr/local/lib/' --with-external-db && make install
