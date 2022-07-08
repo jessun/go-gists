@@ -1,4 +1,6 @@
 # yum
+curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+yum makecache
 yum install -y vim curl wget unzip yum-utils git python-devel python3-devel python3-pip openssl-devel gcc libffi-devel libevent-devel gevent docker-compose
 yum-config-manager \
     --add-repo \
