@@ -1,0 +1,6 @@
+# github.com/actiontech/sqle v1.2206.0
+## explicit; go 1.16
+github.com/actiontech/sqle/sqle/config
+# gopkg.in/yaml.v2 v2.4.0
+## explicit; go 1.15
+gopkg.in/yaml.v2
