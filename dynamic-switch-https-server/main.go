@@ -36,6 +36,7 @@ func (c myHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 		fmt.Printf("read request body got error: <%v>", err)
 		return
 	}
+
 	body := string(bs)
 
 	fmt.Printf("request body: <%v>\n", body)
