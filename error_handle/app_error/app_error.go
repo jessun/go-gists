@@ -31,22 +31,26 @@ func (m *simpleMultiplier) calculate(a, b, expected int) error {
 
 type multiplierWithAnalyzer struct{}
 
-func (m *multiplierWithAnalyzer) calculateRaw(a, b, expected int) (actualRet, expectedRet int) {
-	return a * b, expected
-}
-
-type multiplierWithAnalyzerWrapper func(a, b, c int) (int, int)
-
-func (fn multiplierWithAnalyzerWrapper) calculate(a, b, c int) error {
-	actualRet, expectedRet := fn(a, b, c)
-	if actualRet == expectedRet {
+func (m *multiplierWithAnalyzer) calculateRaw(a, b, expected int) *customError {
+	if a*b == expected {
 		return nil
 	}
 
-	// xxxxxxxxxxx
-	fmt.Printf("a[%v], b[%v], c[%v]", a, b, c)
+	fmt.Printf("a[%v], b[%v], expected[%v]", a, b, expected)
 
-	return &customError{errors.New("not equal"), ErrCodeWrongAnswer}
+	return &customError{errors.New("wrong answer"), ErrCodeWrongAnswer}
+}
+
+type multiplierWithAnalyzerWrapper func(a, b, c int) *customError
+
+func (fn multiplierWithAnalyzerWrapper) calculate(a, b, c int) error {
+	if err := fn(a, b, c); err != nil {
+		// do something with err
+		return err
+	}
+	// do something else
+
+	return nil
 }
 
 func Calculate(t generalMathTool, a, b, c int) error {
