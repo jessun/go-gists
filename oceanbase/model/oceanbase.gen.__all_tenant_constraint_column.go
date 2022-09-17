@@ -3,8 +3,9 @@ package model
 import (
 	"context"
 	"fmt"
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type _AllTenantConstraintColumnMgr struct {
