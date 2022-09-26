@@ -1,0 +1,54 @@
+# actiontech.cloud/universe/ucommon/v4 v4.2208.0
+## explicit; go 1.17
+actiontech.cloud/universe/ucommon/v4/conf
+actiontech.cloud/universe/ucommon/v4/io
+actiontech.cloud/universe/ucommon/v4/log
+actiontech.cloud/universe/ucommon/v4/mysql
+actiontech.cloud/universe/ucommon/v4/os
+actiontech.cloud/universe/ucommon/v4/rand
+actiontech.cloud/universe/ucommon/v4/scsi
+actiontech.cloud/universe/ucommon/v4/trace
+actiontech.cloud/universe/ucommon/v4/user
+actiontech.cloud/universe/ucommon/v4/util
+actiontech.cloud/universe/ucommon/v4/wrapper
+actiontech.cloud/universe/ucommon/v4/wrapper/syscall
+# github.com/cespare/xxhash/v2 v2.1.2
+## explicit; go 1.11
+github.com/cespare/xxhash/v2
+# github.com/cloverstd/tcping v0.1.1
+## explicit
+github.com/cloverstd/tcping/ping
+# github.com/dustin/go-humanize v1.0.0
+## explicit
+github.com/dustin/go-humanize
+# github.com/go-sql-driver/mysql v1.6.0
+## explicit; go 1.10
+github.com/go-sql-driver/mysql
+# github.com/lazybeaver/xorshift v0.0.0-20170702203709-ce511d4823dd
+## explicit
+github.com/lazybeaver/xorshift
+# github.com/pkg/errors v0.9.1
+## explicit
+github.com/pkg/errors
+# github.com/robfig/cron v1.2.0
+## explicit
+github.com/robfig/cron
+# github.com/tatsushid/go-fastping v0.0.0-20160109021039-d7bb493dee3e
+## explicit
+github.com/tatsushid/go-fastping
+# github.com/ungerik/go-dry v0.0.0-20180411133923-654ae31114c8
+## explicit
+github.com/ungerik/go-dry
+# golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
+## explicit; go 1.17
+golang.org/x/net/bpf
+golang.org/x/net/icmp
+golang.org/x/net/internal/iana
+golang.org/x/net/internal/socket
+golang.org/x/net/ipv4
+golang.org/x/net/ipv6
+# golang.org/x/sys v0.0.0-20220429233432-b5fbb4746d32
+## explicit; go 1.17
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+golang.org/x/sys/windows

@@ -1,0 +1,4 @@
+debug: set metric[mysql:gtid:server_uuid] value[4294967295] error[]
+debug: set metric[mysql:mem:usage] value[23490734] error[]
+debug: set metric[mysql:server_status:rpl_semi_sync_master_status] value[] error[mock_error]
+debug: set md5 time [3] seconds
