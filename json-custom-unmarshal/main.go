@@ -26,26 +26,24 @@ type ExtendedDbInstanceTarget struct {
 }
 
 func (t *ExtendedDbInstanceTarget) UnmarshalJSON(b []byte) error {
-	type respTyp struct {
-		*ExtendedDbInstanceTarget
+	type Alias ExtendedDbInstanceTarget
+	aux := &struct {
 		IsInstanceRoleMaster bool `json:"is_instance_role_master"`
+		*Alias
+	}{
+		Alias: (*Alias)(t),
 	}
 
-	resp := &respTyp{ExtendedDbInstanceTarget: t}
-	if err := json.Unmarshal(b, resp); err != nil {
+	if err := json.Unmarshal(b, &aux); err != nil {
 		return err
 	}
 
-	if t.InstanceRole != "" {
-		return nil
-	}
-
-	if resp.IsInstanceRoleMaster {
+	if aux.IsInstanceRoleMaster {
 		t.InstanceRole = "master"
-		return nil
+	} else {
+		t.InstanceRole = "slave"
 	}
 
-	t.InstanceRole = "slave"
 	return nil
 }
 
